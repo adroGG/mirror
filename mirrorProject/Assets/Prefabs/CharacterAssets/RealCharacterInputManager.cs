@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 [RequireComponent(typeof(PlayerInput))]
 public class RealCharacterInputManager : MonoBehaviour {
 
     private Animator animator;
+    private GameObject realParent;
+    private GameObject reflectedParent;
+
     private GameObject realCharacter;
     private GameObject reflectedCharacter;
+
+    float rotationSpeed = 80f;
+    float moveSpeed = 0.8f;
 
     int isWalkingHash;
     int isRunningHash;
@@ -15,8 +20,17 @@ public class RealCharacterInputManager : MonoBehaviour {
 
     PlayerInput input;
 
-    public void Move(InputAction.CallbackContext context) {
+    void Start() {
+        realCharacter = GameObject.Find("RealCharacter");
+        reflectedCharacter = GameObject.Find("ReflectedCharacter");
 
+        animator = GetComponent<Animator>();
+
+        isWalkingHash = Animator.StringToHash("isWalking");
+        isRunningHash = Animator.StringToHash("isRunning");
+    }
+
+    public void Move(InputAction.CallbackContext context) {
         moveDirection = context.ReadValue<Vector2>();
         
         if(context.performed) {
@@ -42,6 +56,9 @@ public class RealCharacterInputManager : MonoBehaviour {
         if(direction[1] > 0.5f) {
             animator.SetBool("isWalking", true);
         }
+
+        Vector3 move = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, direction.y);
+        transform.position += move * moveSpeed * Time.deltaTime;
     }
 
     void ManageRotation(Vector2 direction) {
@@ -54,12 +71,15 @@ public class RealCharacterInputManager : MonoBehaviour {
             ResetAnimations();
             if(anda) { //rotar con animacion de andar
                 animator.SetBool("isWalking", true);
-                realCharacter.transform.Rotate(Vector3.up * -1 * (100f * Time.deltaTime));
-                reflectedCharacter.transform.Rotate(Vector3.up * (100f * Time.deltaTime));
+                realCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+                reflectedCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+
+
             } else if(andaHaciaAtras) { //rotar con animacion de andar hacia atrás
                 animator.SetBool("isWalkingBackwards", true);
-                realCharacter.transform.Rotate(Vector3.up * (100f * Time.deltaTime));
-                reflectedCharacter.transform.Rotate(Vector3.up * -1 * (100f * Time.deltaTime));
+                realCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                reflectedCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+
             }
         }
 
@@ -67,34 +87,26 @@ public class RealCharacterInputManager : MonoBehaviour {
             ResetAnimations();
             if(anda) {
                 animator.SetBool("isWalking", true);
-                realCharacter.transform.Rotate(Vector3.up * (100f * Time.deltaTime));
-                reflectedCharacter.transform.Rotate(Vector3.up * -1 * (100f * Time.deltaTime));
+                realCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                reflectedCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+
             } else if(andaHaciaAtras) {
                 animator.SetBool("isWalkingBackwards", true);
-                realCharacter.transform.Rotate(Vector3.up * -1 *(100f * Time.deltaTime));
-                reflectedCharacter.transform.Rotate(Vector3.up * (100f * Time.deltaTime));
+                realCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+                reflectedCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+
             }
         }
     }
 
     private void FixedUpdate() {
+        ManageMovement(moveDirection);
         ManageRotation(moveDirection);
     }
 
     void Awake() {
         
     }
-
-    void Start() {
-        realCharacter = GameObject.Find("RealCharacter");
-        reflectedCharacter = GameObject.Find("ReflectedCharacter");
-
-        animator = GetComponent<Animator>();
-
-        isWalkingHash = Animator.StringToHash("isWalking");
-        isRunningHash = Animator.StringToHash("isRunning");
-    }
-
 
     void HandleMovement() {
         bool isWalkingBackwards = animator.GetBool(isRunningHash);

@@ -6,16 +6,13 @@ using UnityEngine;
 
 namespace Gamekit3D
 {
-    public class CameraSettings : MonoBehaviour
-    {
-        public enum InputChoice
-        {
+    public class CameraSettings : MonoBehaviour {
+        public enum InputChoice {
             KeyboardAndMouse, Controller,
         }
 
         [Serializable]
-        public struct InvertSettings
-        {
+        public struct InvertSettings {
             public bool invertX;
             public bool invertY;
         }
@@ -30,13 +27,11 @@ namespace Gamekit3D
         public InvertSettings controllerInvertSettings;
         public bool allowRuntimeCameraSettingsChanges;
 
-        public CinemachineFreeLook Current
-        {
+        public CinemachineFreeLook Current {
             get { return inputChoice == InputChoice.KeyboardAndMouse ? keyboardAndMouseCamera : controllerCamera; }
         }
 
-        void Reset()
-        {
+        void Reset() {
             Transform keyboardAndMouseCameraTransform = transform.Find("KeyboardAndMouseFreeLookRig");
             if (keyboardAndMouseCameraTransform != null)
                 keyboardAndMouseCamera = keyboardAndMouseCameraTransform.GetComponent<CinemachineFreeLook>();
@@ -45,33 +40,19 @@ namespace Gamekit3D
             if (controllerCameraTransform != null)
                 controllerCamera = controllerCameraTransform.GetComponent<CinemachineFreeLook>();
 
-            // PlayerController playerController = FindObjectOfType<PlayerController>();
-            // if (playerController != null && playerController.name == "Ellen")
-            // {
-            //     follow = playerController.transform;
-
-            //     lookAt = follow.Find("HeadTarget");
-
-            //     if (playerController.cameraSettings == null)
-            //         playerController.cameraSettings = this;
-            // }
         }
 
-        void Awake()
-        {
+        void Awake() {
             UpdateCameraSettings();
         }
 
-        void Update()
-        {
-            if (allowRuntimeCameraSettingsChanges)
-            {
+        void Update() {
+            if (allowRuntimeCameraSettingsChanges) {
                 UpdateCameraSettings();
             }
         }
 
-        void UpdateCameraSettings()
-        {
+        void UpdateCameraSettings() {
             keyboardAndMouseCamera.Follow = follow;
             keyboardAndMouseCamera.LookAt = lookAt;
             keyboardAndMouseCamera.m_XAxis.m_InvertInput = keyboardAndMouseInvertSettings.invertX;

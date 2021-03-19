@@ -12,7 +12,7 @@ public class RealCharacterInputManager : MonoBehaviour {
     private GameObject reflectedCharacter;
 
     float rotationSpeed = 80f;
-    float moveSpeed = 0.8f;
+    float moveSpeed = 1f;
 
     int isWalkingHash;
     int isRunningHash;
@@ -28,6 +28,11 @@ public class RealCharacterInputManager : MonoBehaviour {
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        Debug.Log("Collision detected");
+        Debug.Log(collision);
     }
 
     public void Move(InputAction.CallbackContext context) {

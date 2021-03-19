@@ -7,11 +7,9 @@ namespace Gamekit3D.Cameras
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Camera))]
-    public class LayerCullDistances : MonoBehaviour
-    {
+    public class LayerCullDistances : MonoBehaviour {
         [System.Serializable]
-        public class QualitySpecificSettings
-        {
+        public class QualitySpecificSettings {
             public int minimumQualitySetting = 0;
             public float nearPlane = 0.3f;
             public float farPlane = 1000f;
@@ -26,23 +24,20 @@ namespace Gamekit3D.Cameras
         float[] computedDistances;
 
 #if UNITY_EDITOR
-        public void Reset()
-        {
+        public void Reset() {
             settings = new QualitySpecificSettings[0];
 
             AddNewSetting(0);
         }
 
-        public void AddNewSetting(int settingLevel)
-        {
+        public void AddNewSetting(int settingLevel) {
             var setting = new QualitySpecificSettings();
 
             setting.nearPlane = 0.3f;
             setting.farPlane = 5000.0f;
             setting.minimumQualitySetting = settingLevel;
 
-            for (int i = 0; i < 32; ++i)
-            {
+            for (int i = 0; i < 32; ++i) {
                 setting.distances[i] = 1500;
             }
 
@@ -50,18 +45,15 @@ namespace Gamekit3D.Cameras
         }
 #endif
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             camera = GetComponent<Camera>();
         }
 
-        void Start()
-        {
+        void Start() {
             ComputeLayerCullDistances();
         }
 
-        public void ComputeLayerCullDistances()
-        {
+        public void ComputeLayerCullDistances() {
             FindSettings();
 
             if (pickedSetting < 0 || pickedSetting >= settings.Length)
@@ -79,14 +71,12 @@ namespace Gamekit3D.Cameras
             Shader.SetGlobalFloatArray("_LayerCullDistances", computedDistances);
         }
 
-        void FindSettings()
-        {
+        void FindSettings() {
             int foundIdx = -1;
             int highestSetting = -1;
             int currentQualitySetting = QualitySettings.GetQualityLevel();
 
-            for (int i = 0; i < settings.Length; ++i)
-            {
+            for (int i = 0; i < settings.Length; ++i) {
                 if (settings[i].minimumQualitySetting <= currentQualitySetting &&
                     settings[i].minimumQualitySetting > highestSetting)
                 {
@@ -95,18 +85,15 @@ namespace Gamekit3D.Cameras
                 }
             }
 
-            if (foundIdx == -1)
-            {//use the first one
+            if (foundIdx == -1) {//use the first one
                 pickedSetting = 0;
             }
-            else
-            {
+            else {
                 pickedSetting = foundIdx;
             }
         }
 
-        void Update()
-        {
+        void Update() {
             if (Application.isEditor)
                 ComputeLayerCullDistances();
         }

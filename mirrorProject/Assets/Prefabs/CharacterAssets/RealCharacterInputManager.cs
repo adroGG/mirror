@@ -12,7 +12,7 @@ public class RealCharacterInputManager : MonoBehaviour {
     private GameObject reflectedCharacter;
 
     float rotationSpeed = 80f;
-    float moveSpeed = 1f;
+    float moveSpeed = 2f;
 
     int isWalkingHash;
     int isRunningHash;
@@ -31,9 +31,35 @@ public class RealCharacterInputManager : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision collision) {
-        Debug.Log("Collision detected");
-        Debug.Log(collision);
+        
     }
+
+    
+    void OnTriggerStay(Collider other) {
+        // Disable ReflectedCharacter on ReflectionHider element collider Enter
+        if(other.gameObject.tag == "ReflectionDisabler") {
+            reflectedCharacter.SetActive(false);
+        }
+        
+        if(other.gameObject.tag == "ReflectionHider") {
+            reflectedCharacter.SetActive(false);
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        // Enable ReflectedCharacter on ReflectionHider element collider Exit
+        if(other.gameObject.tag == "ReflectionDisabler") {
+            reflectedCharacter.SetActive(true);
+        }
+
+        if(other.gameObject.tag == "ReflectionHider") {
+            reflectedCharacter.transform.position = new Vector3(realCharacter.transform.position.x, 
+                                                                reflectedCharacter.transform.position.y, 
+                                                                reflectedCharacter.transform.position.z);
+            reflectedCharacter.SetActive(true);
+        }
+    }
+
 
     public void Move(InputAction.CallbackContext context) {
         moveDirection = context.ReadValue<Vector2>();

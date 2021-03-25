@@ -21,10 +21,10 @@ TagManager:
   - Skybox
   - Player
   - PostProcessing
-  - SetDressing
+  - Interactibles
   - Walls
   - 
-  - Vehicles
+  - Glow
   - Navmesh
   - Environment
   - Characters

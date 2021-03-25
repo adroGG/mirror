@@ -5,17 +5,18 @@ using UnityEngine.InputSystem;
 public class RealCharacterInputManager : MonoBehaviour {
 
     private Animator animator;
-    private GameObject realParent;
-    private GameObject reflectedParent;
-
+    
     private GameObject realCharacter;
     private GameObject reflectedCharacter;
 
     float rotationSpeed = 80f;
-    float moveSpeed = 2f;
+    float moveSpeed = 3.5f;
+    float speedModifier = 1f;
 
     int isWalkingHash;
     int isRunningHash;
+    int isWalkingBackwardsHash;
+
     private Vector2 moveDirection; 
 
     PlayerInput input;
@@ -28,16 +29,16 @@ public class RealCharacterInputManager : MonoBehaviour {
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
-    }
-
-    void OnCollisionEnter(Collision collision) {
-        
+        isWalkingBackwardsHash = Animator.StringToHash("isWalkingBackwards");
     }
 
     
-    void OnTriggerStay(Collider other) {
+    void OnTriggerEnter(Collider other) {
+
+        Debug.Log("other: " + other);
+
         // Disable ReflectedCharacter on ReflectionHider element collider Enter
-        if(other.gameObject.tag == "ReflectionDisabler") {
+        if (other.gameObject.tag == "ReflectionDisabler") {
             reflectedCharacter.SetActive(false);
         }
         
@@ -73,7 +74,8 @@ public class RealCharacterInputManager : MonoBehaviour {
         }
     }
 
-    void ResetAnimations() {
+    void ResetAnimations()
+    {
         animator.SetBool("isWalking", false);
         animator.SetBool("isWalkingBackwards", false);
         animator.SetBool("isRunning", false);
@@ -82,15 +84,19 @@ public class RealCharacterInputManager : MonoBehaviour {
     void ManageMovement(Vector2 direction) {
         if(direction[1] < -0.5f) {
             animator.SetBool("isWalkingBackwards", true);
+            speedModifier = 2f;
         }
         
         if(direction[1] > 0.5f) {
             animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", true); // Correr
+            speedModifier = 1f;
         }
 
         Vector3 move = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, direction.y);
-        transform.position += move * moveSpeed * Time.deltaTime;
+        transform.position += move * (moveSpeed / speedModifier) * Time.deltaTime;
     }
+
 
     void ManageRotation(Vector2 direction) {
         bool rotaIzq = direction[0] < -0.5;
@@ -99,34 +105,35 @@ public class RealCharacterInputManager : MonoBehaviour {
         bool andaHaciaAtras = direction[1] < -0.5f;
 
         if(rotaIzq) { // rotar izquierda
-            ResetAnimations();
-            if(anda) { //rotar con animacion de andar
+            if (anda)
+            { //rotar con animacion de andar
                 animator.SetBool("isWalking", true);
                 realCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
                 reflectedCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
 
-
-            } else if(andaHaciaAtras) { //rotar con animacion de andar hacia atrás
+            }
+            else if (andaHaciaAtras)
+            { //rotar con animacion de andar hacia atrás
                 animator.SetBool("isWalkingBackwards", true);
                 realCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-                reflectedCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
-
+                reflectedCharacter.transform.Rotate(Vector3.up * (-rotationSpeed / 2) * Time.deltaTime);
             }
         }
 
-        if(rotaDerecha) { // rotar derecha
-            ResetAnimations();
-            if(anda) {
-                animator.SetBool("isWalking", true);
-                realCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-                reflectedCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+        if(rotaDerecha) { // rotar 
+                if (anda)
+                {
+                    animator.SetBool("isWalking", true);
+                    realCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                    reflectedCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
 
-            } else if(andaHaciaAtras) {
-                animator.SetBool("isWalkingBackwards", true);
-                realCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
-                reflectedCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-
-            }
+                }
+                else if (andaHaciaAtras)
+                {
+                    animator.SetBool("isWalkingBackwards", true);
+                    realCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+                    reflectedCharacter.transform.Rotate(Vector3.up * (rotationSpeed / 2) * Time.deltaTime);
+                }
         }
     }
 
@@ -135,22 +142,10 @@ public class RealCharacterInputManager : MonoBehaviour {
         ManageRotation(moveDirection);
     }
 
-    void Awake() {
-        
-    }
-
     void HandleMovement() {
-        bool isWalkingBackwards = animator.GetBool(isRunningHash);
+        bool isWalkingBackwards = animator.GetBool(isWalkingBackwardsHash);
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRunning = animator.GetBool(isRunningHash);
-    }
-
-    void OnEnable() {
-        // input.CharacterControls.Enable();
-    }
-
-    void OnDisable() {
-        // input.CharacterControls.Disable();
     }
 }
 

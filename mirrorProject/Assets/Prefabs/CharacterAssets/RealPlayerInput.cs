@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Prefabs/Characters/RealPlayerInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Prefabs/CharacterAssets/RealPlayerInput.inputactions'
 
 using System;
 using System.Collections;

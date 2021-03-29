@@ -8,21 +8,25 @@ public class SceneElementsInteraction : MonoBehaviour {
     private GameObject reflectedCharacter;
     private float mirrorZ;
     private float reflectedDepth;
+    private GameObject spotLight;
 
     void Start() {
         realCharacter = GameObject.Find("RealCharacter");
         reflectedCharacter = GameObject.Find("ReflectedCharacter");
         mirrorZ = GameObject.Find("Mirror").transform.position.z;
 
+        createSpotLight();
     }
 
     void OnTriggerEnter(Collider other) {
-
-        Debug.Log("other: " + other);
-
         // Disable ReflectedCharacter on ReflectionHider element collider Enter
         if (other.gameObject.tag == "ReflectionDisabler") {
             reflectedCharacter.SetActive(false);
+            spotLight.transform.position = new Vector3(reflectedCharacter.transform.position.x, 
+                                                        3.5f, 
+                                                        reflectedCharacter.transform.position.z);
+            spotLight.SetActive(true);
+
         }
 
         if (other.gameObject.tag == "ReflectionHider") {
@@ -38,6 +42,7 @@ public class SceneElementsInteraction : MonoBehaviour {
         // Enable ReflectedCharacter on ReflectionHider element collider Exit
         if (other.gameObject.tag == "ReflectionDisabler") {
             reflectedCharacter.SetActive(true);
+            spotLight.SetActive(false);
         }
 
         if (other.gameObject.tag == "ReflectionHider") {
@@ -54,5 +59,19 @@ public class SceneElementsInteraction : MonoBehaviour {
                                                                 mirrorZ - reflectedDepth);
             reflectedCharacter.SetActive(true);
         }
+    }
+
+    void createSpotLight() {
+        spotLight = new GameObject("spotLight");
+        spotLight.transform.position = reflectedCharacter.transform.position;
+        spotLight.transform.Rotate(90f, 0f ,0f);
+        Light spotLightComponent = spotLight.AddComponent<Light>();
+        spotLightComponent.type = LightType.Spot;
+        spotLightComponent.color = Color.red;
+        spotLightComponent.range = 20f;
+        spotLightComponent.spotAngle = 30f;
+        spotLightComponent.intensity = 3f;
+
+        spotLight.SetActive(false);
     }
 }

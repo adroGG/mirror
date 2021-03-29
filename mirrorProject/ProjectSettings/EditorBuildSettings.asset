@@ -27,6 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 109f5532e84341e41a78b7812b25e436
   - enabled: 1
-    path: Assets/Scenes/Stage1.unity
+    path: Assets/Scenes/Stage1-BackUp.unity
     guid: bc9848f24d7f44546a7d2a1a2ddf3128
   m_configObjects: {}

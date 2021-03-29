@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SceneElementsInteraction : MonoBehaviour {
 
     private GameObject realCharacter;
     private GameObject reflectedCharacter;
+    private GameObject spotLight;
+
     private float mirrorZ;
     private float reflectedDepth;
-    private GameObject spotLight;
+
 
     void Start() {
         realCharacter = GameObject.Find("RealCharacter");
@@ -26,7 +26,6 @@ public class SceneElementsInteraction : MonoBehaviour {
                                                         3.5f, 
                                                         reflectedCharacter.transform.position.z);
             spotLight.SetActive(true);
-
         }
 
         if (other.gameObject.tag == "ReflectionHider") {
@@ -61,8 +60,8 @@ public class SceneElementsInteraction : MonoBehaviour {
         }
     }
 
-    void createSpotLight() {
-        spotLight = new GameObject("spotLight");
+    private void createSpotLight() {
+        spotLight = new GameObject("Spot Light");
         spotLight.transform.position = reflectedCharacter.transform.position;
         spotLight.transform.Rotate(90f, 0f ,0f);
         Light spotLightComponent = spotLight.AddComponent<Light>();

@@ -68,8 +68,8 @@ public class SceneElementsInteraction : MonoBehaviour {
         spotLightComponent.type = LightType.Spot;
         spotLightComponent.color = Color.red;
         spotLightComponent.range = 20f;
-        spotLightComponent.spotAngle = 30f;
-        spotLightComponent.intensity = 3f;
+        spotLightComponent.spotAngle = 40f;
+        spotLightComponent.intensity = 7f;
 
         spotLight.SetActive(false);
     }

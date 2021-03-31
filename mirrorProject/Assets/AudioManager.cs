@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void PlaySound(string name) {
+        Debug.Log("Reproduce el sonido \"" + name + "\"");
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
         if (s == null) {

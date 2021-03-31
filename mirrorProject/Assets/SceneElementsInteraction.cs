@@ -54,7 +54,6 @@ public class SceneElementsInteraction : MonoBehaviour {
             reflectedCharacter.SetActive(true);
             spotLight.SetActive(false);
 
-            Debug.Log("Stop Energy desde SceneElementsInteraction.");
             audioManager.StopSound("Shield Energy");
 
             StartCoroutine(audioManager.StopSound("Shield Energy"));

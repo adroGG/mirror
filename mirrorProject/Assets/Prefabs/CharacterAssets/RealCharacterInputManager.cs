@@ -44,6 +44,7 @@ public class RealCharacterInputManager : MonoBehaviour {
     }
 
     void ManageMovement(Vector2 direction) {
+        ResetAnimations();
         if (direction[1] < -0.5f) {
             animator.SetBool("isWalkingBackwards", true);
             speedModifier = 2f;
@@ -75,7 +76,7 @@ public class RealCharacterInputManager : MonoBehaviour {
             } else if (andaHaciaAtras) { //rotar con animacion de andar hacia atrás
                 animator.SetBool("isWalkingBackwards", true);
                 realCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-                reflectedCharacter.transform.Rotate(Vector3.up * (-rotationSpeed / 2) * Time.deltaTime);
+                reflectedCharacter.transform.Rotate(Vector3.up * (-rotationSpeed) * Time.deltaTime);
             }
         }
 
@@ -88,7 +89,7 @@ public class RealCharacterInputManager : MonoBehaviour {
             } else if (andaHaciaAtras) {
                 animator.SetBool("isWalkingBackwards", true);
                 realCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
-                reflectedCharacter.transform.Rotate(Vector3.up * (rotationSpeed / 2) * Time.deltaTime);
+                reflectedCharacter.transform.Rotate(Vector3.up * (rotationSpeed) * Time.deltaTime);
             }
         }
     }

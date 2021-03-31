@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class SceneElementsInteraction : MonoBehaviour {
 
@@ -9,11 +10,15 @@ public class SceneElementsInteraction : MonoBehaviour {
     private float mirrorZ;
     private float reflectedDepth;
 
+    private AudioManager audioManager;
+
 
     void Start() {
         realCharacter = GameObject.Find("RealCharacter");
         reflectedCharacter = GameObject.Find("ReflectedCharacter");
         mirrorZ = GameObject.Find("Mirror").transform.position.z;
+
+        audioManager = FindObjectOfType<AudioManager>();
 
         createSpotLight();
     }
@@ -22,18 +27,24 @@ public class SceneElementsInteraction : MonoBehaviour {
         // Disable ReflectedCharacter on ReflectionHider element collider Enter
         if (other.gameObject.tag == "ReflectionDisabler") {
             reflectedCharacter.SetActive(false);
-            spotLight.transform.position = new Vector3(reflectedCharacter.transform.position.x, 
-                                                        3.5f, 
+            spotLight.transform.position = new Vector3(reflectedCharacter.transform.position.x,
+                                                        3.5f,
                                                         reflectedCharacter.transform.position.z);
             spotLight.SetActive(true);
+
+            audioManager.PlaySound("Shield Energy");
         }
 
         if (other.gameObject.tag == "ReflectionHider") {
             reflectedCharacter.SetActive(false);
+
+            audioManager.PlaySound("Shield Energy");
         }
 
         if (other.gameObject.tag == "ReflectionHiderWithDepth") {
             reflectedCharacter.SetActive(false);
+
+            audioManager.PlaySound("Shield Energy");
         }
     }
 
@@ -42,6 +53,11 @@ public class SceneElementsInteraction : MonoBehaviour {
         if (other.gameObject.tag == "ReflectionDisabler") {
             reflectedCharacter.SetActive(true);
             spotLight.SetActive(false);
+
+            Debug.Log("Stop Energy desde SceneElementsInteraction.");
+            audioManager.StopSound("Shield Energy");
+
+            StartCoroutine(audioManager.StopSound("Shield Energy"));
         }
 
         if (other.gameObject.tag == "ReflectionHider") {
@@ -49,6 +65,8 @@ public class SceneElementsInteraction : MonoBehaviour {
                                                                 reflectedCharacter.transform.position.y,
                                                                 reflectedCharacter.transform.position.z);
             reflectedCharacter.SetActive(true);
+
+            StartCoroutine(audioManager.StopSound("Shield Energy"));
         }
 
         if (other.gameObject.tag == "ReflectionHiderWithDepth") {
@@ -57,13 +75,15 @@ public class SceneElementsInteraction : MonoBehaviour {
                                                                 reflectedCharacter.transform.position.y,
                                                                 mirrorZ - reflectedDepth);
             reflectedCharacter.SetActive(true);
+
+            StartCoroutine(audioManager.StopSound("Shield Energy"));
         }
     }
 
     private void createSpotLight() {
         spotLight = new GameObject("Spot Light");
         spotLight.transform.position = reflectedCharacter.transform.position;
-        spotLight.transform.Rotate(90f, 0f ,0f);
+        spotLight.transform.Rotate(90f, 0f, 0f);
         Light spotLightComponent = spotLight.AddComponent<Light>();
         spotLightComponent.type = LightType.Spot;
         spotLightComponent.color = Color.red;

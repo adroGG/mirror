@@ -9,17 +9,21 @@ public class RealCharacterInputManager : MonoBehaviour {
     private GameObject realCharacter;
     private GameObject reflectedCharacter;
 
+    private Renderer reflectedRenderer;
+
+
     float rotationSpeed = 80f;
     float moveSpeed = 3.5f;
     float speedModifier = 1f;
 
     private Vector2 moveDirection;
 
-    PlayerInput input;
 
     void Start() {
         realCharacter = GameObject.Find("RealCharacter");
         reflectedCharacter = GameObject.Find("ReflectedCharacter");
+
+        reflectedRenderer = GetComponentInChildren<Renderer>();
 
         animator = GetComponent<Animator>();
     }
@@ -95,8 +99,10 @@ public class RealCharacterInputManager : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        ManageMovement(moveDirection);
-        ManageRotation(moveDirection);
+        if (reflectedRenderer.enabled) {
+            ManageMovement(moveDirection);
+            ManageRotation(moveDirection);
+        }
     }
 
 }

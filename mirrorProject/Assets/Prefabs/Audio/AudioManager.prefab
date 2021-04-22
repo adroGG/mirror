@@ -55,6 +55,20 @@ MonoBehaviour:
   - name: MainTheme
     clip: {fileID: 8300000, guid: 928463211fe90ce4293e2b8f7083a799, type: 3}
     mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
+    volume: 0
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: FootSteps
+    clip: {fileID: 8300000, guid: 2a02ba17ff7f5a84793aedfe2b3e7f78, type: 3}
+    mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DoorOpen
+    clip: {fileID: 8300000, guid: cd67f738f56407041a333df924a4edd0, type: 3}
+    mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
     volume: 0.8
     pitch: 1
     loop: 0

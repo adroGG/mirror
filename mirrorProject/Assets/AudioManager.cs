@@ -36,7 +36,6 @@ public class AudioManager : MonoBehaviour {
 
     private void Start() {
         PlaySound("MainTheme");
-
     }
 
     public void PlaySound(string name) {
@@ -62,12 +61,17 @@ public class AudioManager : MonoBehaviour {
         }
 
         // Bloque encargado de hacer el fade out
-        for(float t = 0f; t < fadeOutTime; t += Time.deltaTime) {
+        for (float t = 0f; t < fadeOutTime; t += Time.deltaTime) {
             s.source.volume = (1 - (t / fadeOutTime));
             yield return null;
         }
 
         s.source.Stop();
         s.source.volume = 1f; // Aunque el source se detenga, el volumen seguiría a 0 sin esta linea y no sonaría en la segunda ocasion
+    }
+
+    public bool CheckIfIsPlaying(string name) {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        return s.source.isPlaying;
     }
 }

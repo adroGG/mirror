@@ -5,12 +5,9 @@ using UnityEngine.InputSystem;
 public class RealCharacterInputManager : MonoBehaviour {
 
     private Animator animator;
-
     private GameObject realCharacter;
     private GameObject reflectedCharacter;
-
     private Renderer reflectedRenderer;
-
 
     float rotationSpeed = 80f;
     float moveSpeed = 3.5f;
@@ -18,16 +15,24 @@ public class RealCharacterInputManager : MonoBehaviour {
 
     private Vector2 moveDirection;
 
+    [SerializeField]
+    private AudioClip audioClip;
+
+    private AudioSource audioSource;
 
     void Start() {
         realCharacter = GameObject.Find("RealCharacter");
         reflectedCharacter = GameObject.Find("ReflectedCharacter");
-
         reflectedRenderer = GetComponentInChildren<Renderer>();
-
         animator = GetComponent<Animator>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
+
+    private void Step() { // Llamadas desde los eventos del Animator de Character
+        audioSource.PlayOneShot(audioClip);
+    }
 
     public void Move(InputAction.CallbackContext context) {
         moveDirection = context.ReadValue<Vector2>();

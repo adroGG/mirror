@@ -3,24 +3,31 @@ using UnityEngine.Events;
 
 public class OpenDoor : MonoBehaviour {
     public UnityEvent interactAction;
-
+    
     private Collider col;
+    private SceneScript levelManager;
+    private AudioManager audioManager;
 
-    // añadir un bool para que la puerta permanezca abierta hasta que algo salga
+    private void Start() {
+        levelManager = FindObjectOfType<SceneScript>();
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     void OnTriggerEnter(Collider other) {
-        // Preventing diferent colliders to open and close doors
-        if(col == null) {
+        if(col == null) { // Preventing diferent colliders to open doors
             col = other;
+            levelManager.doorTriggered(gameObject.transform.parent.name);
+            // sonido de abrir puerta
+            audioManager.PlaySound("DoorOpen");
             interactAction.Invoke();
-            Debug.Log("Entrando en el cubo. Ahora debe abrirse la puerta.");
         }
     }
 
     void OnTriggerExit(Collider other) {
-        // Preventing diferent colliders to open and close doors
-        if (col != null) {
-            Debug.Log("Saliendo del cubo. Ahora debe cerrarse la puerta.");
+        if (col != null) { // Preventing diferent colliders to close doors
+            levelManager.doorUntriggered(gameObject.transform.parent.name);
+            // sonido de cerrar puerta
+            audioManager.PlaySound("CloseDoor");
             interactAction.Invoke();
             col = null;
         }

@@ -59,15 +59,22 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: FootSteps
-    clip: {fileID: 8300000, guid: 2a02ba17ff7f5a84793aedfe2b3e7f78, type: 3}
+  - name: ButtonHover
+    clip: {fileID: 8300000, guid: cd7044bf418f642df9a2130900bd3fd5, type: 3}
     mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
-    volume: 0.8
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: DoorOpen
     clip: {fileID: 8300000, guid: cd67f738f56407041a333df924a4edd0, type: 3}
+    mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WinCondition
+    clip: {fileID: 8300000, guid: 048357143f0994413af48fbaf75d7890, type: 3}
     mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
     volume: 0.8
     pitch: 1

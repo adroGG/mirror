@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class MainMenu : MonoBehaviour {
 
     private AudioManager audioManager;
+    private LevelLoader levelLoader;
 
     private void Start() {
         audioManager = FindObjectOfType<AudioManager>();
+        levelLoader = FindObjectOfType<LevelLoader>();
     }
     public void PlayButton() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        levelLoader.LoadNextLevel();
     }
 
     public void QuitButton() {

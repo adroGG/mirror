@@ -21,6 +21,8 @@ public class OpenDoor : MonoBehaviour {
             audioManager.PlaySound("DoorOpen");
             interactAction.Invoke();
         }
+
+        checkWinCondition();
     }
 
     void OnTriggerExit(Collider other) {
@@ -31,6 +33,10 @@ public class OpenDoor : MonoBehaviour {
             interactAction.Invoke();
             col = null;
         }
+    }
+
+    private void checkWinCondition() {
+        levelManager.checkWinCondition();
     }
 
 }

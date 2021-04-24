@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneScript : MonoBehaviour {
-    private bool realDoorOpened;
-    private bool reflectedDoorOpened;
-
-    private bool levelCompleted;
+    [SerializeField]
+    private GameObject realDoor, reflectedDoor, Panel;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI interactionText;
+    Animator realDoorAnimator, reflectedDoorAnimator;
+    private bool realDoorOpened, reflectedDoorOpened, levelCompleted;
+    AudioManager audioManager;
 
     private void Start() {
         levelCompleted = false;
+        realDoorAnimator = realDoor.GetComponent<Animator>();
+        reflectedDoorAnimator = reflectedDoor.GetComponent<Animator>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void doorTriggered(string gameObjName) {
@@ -33,10 +39,20 @@ public class SceneScript : MonoBehaviour {
     }
 
     private void reactToDoorsStatus() {
-        if(realDoorOpened && reflectedDoorOpened) {
+        if (realDoorOpened && reflectedDoorOpened) {
             levelCompleted = true;
         }
-
-        Debug.Log("IS LEVEL COMPLETED? " + levelCompleted);
     }
+
+    public void checkWinCondition() {
+        if(levelCompleted) {
+            realDoorAnimator.SetBool("winCondition", true);
+            reflectedDoorAnimator.SetBool("winCondition", true);
+            audioManager.PlaySound("WinCondition");
+        }
+    }
+
+
+
+
 }

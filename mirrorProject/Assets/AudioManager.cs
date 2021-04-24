@@ -13,7 +13,6 @@ public class AudioManager : MonoBehaviour {
     private float fadeOutTime = 0.5f;
 
     void Awake() {
-
         if (instance == null) {
             instance = this;
         } else {
@@ -30,7 +29,6 @@ public class AudioManager : MonoBehaviour {
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
-
         }
     }
 
@@ -39,22 +37,18 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void PlaySound(string name) {
-        Debug.Log("Reproduce el sonido \"" + name + "\"");
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-
+        Sound s = Array.Find(instance.sounds, sound => sound.name == name);
         if (s == null) {
             Debug.Log("El AudioManager no encuentra el sonido con nombre " + name);
             return;
         }
-
         s.source.Play();
     }
 
     // Uso IEnumerator para poder llamarlo con StartCoroutine() y hacer el efecto de FadeOut.
     // De otra forma el sonido acaba de forma demasiado drástica. 
     public IEnumerator StopSound(string name) {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-
+        Sound s = Array.Find(instance.sounds, sound => sound.name == name);
         if (s == null) {
             Debug.Log("El AudioManager no encuentra el sonido con nombre " + name);
             yield break;
@@ -71,7 +65,10 @@ public class AudioManager : MonoBehaviour {
     }
 
     public bool CheckIfIsPlaying(string name) {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        return s.source.isPlaying;
+        Sound s = Array.Find(instance.sounds, sound => sound.name == name);
+        if (s.source != null) {
+            return s.source.isPlaying;
+        }
+        return false;
     }
 }

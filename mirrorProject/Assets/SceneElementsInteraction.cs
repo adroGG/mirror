@@ -40,59 +40,55 @@ public class SceneElementsInteraction : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if (col == null) {
-            col = other;
-            // Disable ReflectedCharacter on ReflectionHider element collider Enter
-            if (other.gameObject.tag == "ReflectionDisabler") {
-                UpdateSpotLightProperties(true, Color.red);
-                ToggleReflectedCharacter(false);
-                audioManager.PlaySound("Shield Energy");
-            }
-
-            if (other.gameObject.tag == "ReflectionHider") {
-                UpdateSpotLightProperties(true, Color.blue);
-                ToggleReflectedCharacter(false);
-                audioManager.PlaySound("Shield Energy");
-            }
-
-            if (other.gameObject.tag == "ReflectionHiderWithDepth") {
-                UpdateSpotLightProperties(true, Color.green);
-                ToggleReflectedCharacter(false);
-                audioManager.PlaySound("Shield Energy");
-            }
+        // Disable ReflectedCharacter on ReflectionHider element collider Enter
+        if (other.gameObject.tag == "ReflectionDisabler") {
+            UpdateSpotLightProperties(true, Color.red);
+            ToggleReflectedCharacter(false);
+            audioManager.PlaySound("Shield Energy");
         }
+
+        if (other.gameObject.tag == "ReflectionHider") {
+            UpdateSpotLightProperties(true, Color.blue);
+            ToggleReflectedCharacter(false);
+            audioManager.PlaySound("Shield Energy");
+        }
+
+        if (other.gameObject.tag == "ReflectionHiderWithDepth") {
+            UpdateSpotLightProperties(true, Color.green);
+            ToggleReflectedCharacter(false);
+            audioManager.PlaySound("Shield Energy");
+        }
+       
     }
 
     void OnTriggerExit(Collider other) {
-        if (col != null) {
-            // Enable ReflectedCharacter on ReflectionHider element collider Exit
-            if (other.gameObject.tag == "ReflectionDisabler") {
-                ToggleReflectedCharacter(true);
-                UpdateSpotLightProperties(false, Color.red);
-                audioManager.StopSound("Shield Energy");
-                StartCoroutine(audioManager.StopSound("Shield Energy"));
-            }
-
-            if (other.gameObject.tag == "ReflectionHider") {
-                reflectedCharacter.transform.position = new Vector3(realCharacter.transform.position.x,
-                                                                    reflectedCharacter.transform.position.y,
-                                                                    reflectedCharacter.transform.position.z);
-                ToggleReflectedCharacter(true);
-                UpdateSpotLightProperties(false, Color.blue);
-                StartCoroutine(audioManager.StopSound("Shield Energy"));
-            }
-
-            if (other.gameObject.tag == "ReflectionHiderWithDepth") {
-                reflectedDepth = realCharacter.transform.position.z - mirrorZ;
-                reflectedCharacter.transform.position = new Vector3(realCharacter.transform.position.x,
-                                                                    reflectedCharacter.transform.position.y,
-                                                                    mirrorZ - reflectedDepth);
-                ToggleReflectedCharacter(true);
-                UpdateSpotLightProperties(false, Color.green);
-                StartCoroutine(audioManager.StopSound("Shield Energy"));
-            }
-            col = null;
+        // Enable ReflectedCharacter on ReflectionHider element collider Exit
+        if (other.gameObject.tag == "ReflectionDisabler") {
+            ToggleReflectedCharacter(true);
+            UpdateSpotLightProperties(false, Color.red);
+            audioManager.StopSound("Shield Energy");
+            StartCoroutine(audioManager.StopSound("Shield Energy"));
         }
+
+        if (other.gameObject.tag == "ReflectionHider") {
+            reflectedCharacter.transform.position = new Vector3(realCharacter.transform.position.x,
+                                                                reflectedCharacter.transform.position.y,
+                                                                reflectedCharacter.transform.position.z);
+            ToggleReflectedCharacter(true);
+            UpdateSpotLightProperties(false, Color.blue);
+            StartCoroutine(audioManager.StopSound("Shield Energy"));
+        }
+
+        if (other.gameObject.tag == "ReflectionHiderWithDepth") {
+            reflectedDepth = realCharacter.transform.position.z - mirrorZ;
+            reflectedCharacter.transform.position = new Vector3(realCharacter.transform.position.x,
+                                                                reflectedCharacter.transform.position.y,
+                                                                mirrorZ - reflectedDepth);
+            ToggleReflectedCharacter(true);
+            UpdateSpotLightProperties(false, Color.green);
+            StartCoroutine(audioManager.StopSound("Shield Energy"));
+        }
+
     }
 
     private void CreateSpotLight() {

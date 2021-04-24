@@ -6,12 +6,14 @@ public class Interactable : MonoBehaviour {
     public bool isInRange;
     public KeyCode interactKey;
     public UnityEvent interactAction;
+    public GameObject Panel;
+    public TMPro.TextMeshProUGUI interactionText;
 
-    // Start is called before the first frame update
-    void Start() {
-        Debug.Log("INTERACTABLE SCRIPT");
+    private InteractiveElementController elementController;
+
+    private void Start() {
+        elementController = transform.parent.gameObject.GetComponent<InteractiveElementController>();
     }
-
     // Update is called once per frame
     void Update() {
         if(isInRange) {
@@ -25,14 +27,19 @@ public class Interactable : MonoBehaviour {
         Debug.Log("INTERACTABLE trigger enter. ");
         if(other.gameObject.CompareTag("Player")) {
             isInRange = true;
-            Debug.Log("Esta en rango");
+            HUDUpdate(true, elementController.HUDTextDescription());
         }
     }
 
     void OnTriggerExit(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
             isInRange = false;
-            Debug.Log("Ha salido del rango");
+            HUDUpdate(false, "");
         }
+    }
+
+    private void HUDUpdate(bool panelStatus, string text) {
+        interactionText.text = text;
+        Panel.SetActive(panelStatus);
     }
 }

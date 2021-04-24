@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - ReflectionHider
   - ReflectionDisabler
+  - ReflectionHiderWithDepth
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Walls
   - 
   - Glow
-  - Navmesh
+  - Frictionless
   - Environment
   - Characters
   - Vegetation

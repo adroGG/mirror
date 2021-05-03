@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class InteractiveElementController : MonoBehaviour {
 
-    private bool isActive;
+    private bool boxIsActive;
     private GameObject reflectionDisablerTrigger;
 
     AudioManager audioManager;
 
     void Start() {
         audioManager = FindObjectOfType<AudioManager>();
-        reflectionDisablerTrigger = transform.Find("ReflectionDisablerTrigger").gameObject;
+        if (transform.Find("ReflectionDisablerTrigger") != null) {
+            reflectionDisablerTrigger = transform.Find("ReflectionDisablerTrigger").gameObject;
+        }
     }
 
     public void ToggleBox() {
-        isActive = !isActive;
-        
+        boxIsActive = !boxIsActive;
         if (audioManager.CheckIfIsPlaying("Shield Energy")) {
             Debug.Log("Detecta que está sonando. ");
             audioManager.StopSound("Shield Energy");
         }
-
         reflectionDisablerTrigger.SetActive(!reflectionDisablerTrigger.activeSelf);
+    }
+
+    public void OpenNumPad() {
+
     }
 
     public string HUDTextDescription() {

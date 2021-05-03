@@ -24,15 +24,14 @@ public class Interactable : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("INTERACTABLE trigger enter. ");
-        if(other.gameObject.CompareTag("Player")) {
+        if(other.gameObject.name == "RealCharacter") {
             isInRange = true;
             HUDUpdate(true, elementController.HUDTextDescription());
         }
     }
 
     void OnTriggerExit(Collider other) {
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.name == "RealCharacter") {
             isInRange = false;
             HUDUpdate(false, "");
         }

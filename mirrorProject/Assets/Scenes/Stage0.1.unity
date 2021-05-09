@@ -2332,6 +2332,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2803105202568910345, guid: fd2b4ff82d4eef74b9eaea7b43a2306f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fd2b4ff82d4eef74b9eaea7b43a2306f, type: 3}
+--- !u!114 &6018528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6964290204546873130, guid: 9b6cbd4b2ac91d648869247919003f67,
+    type: 3}
+  m_PrefabInstance: {fileID: 8260086447959443322}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &13265215
 GameObject:
   m_ObjectHideFlags: 0
@@ -2458,12 +2470,12 @@ PrefabInstance:
     - target: {fileID: 2368995827410969929, guid: 3b93dcfab8276ef49b29e2e7859ba695,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2368995827410969929, guid: 3b93dcfab8276ef49b29e2e7859ba695,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.25
+      value: -5.24
       objectReference: {fileID: 0}
     - target: {fileID: 2368995827410969929, guid: 3b93dcfab8276ef49b29e2e7859ba695,
         type: 3}
@@ -2530,6 +2542,16 @@ PrefabInstance:
       propertyPath: interactAction.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5289969334897541789, guid: 3b93dcfab8276ef49b29e2e7859ba695,
+        type: 3}
+      propertyPath: Panel
+      value: 
+      objectReference: {fileID: 1518783227}
+    - target: {fileID: 5289969334897541789, guid: 3b93dcfab8276ef49b29e2e7859ba695,
+        type: 3}
+      propertyPath: interactionText
+      value: 
+      objectReference: {fileID: 6018528}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b93dcfab8276ef49b29e2e7859ba695, type: 3}
 --- !u!1001 &60099579
@@ -2958,8 +2980,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   realDoor: {fileID: 187197741}
   reflectedDoor: {fileID: 1389371093}
-  interactionText: {fileID: 2115444932}
   Panel: {fileID: 2115444933}
+  interactionText: {fileID: 2115444932}
+  levelCompleted: 0
 --- !u!4 &164876887
 Transform:
   m_ObjectHideFlags: 0
@@ -5477,11 +5500,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4590453947704286, guid: 1fac0dae54de3224181696b709bb4d66, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016790977
+      value: -0.000000016400271
       objectReference: {fileID: 0}
     - target: {fileID: 4590453947704286, guid: 1fac0dae54de3224181696b709bb4d66, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000039638124
+      value: 0.0000000038715786
       objectReference: {fileID: 0}
     - target: {fileID: 4600086282974116, guid: 1fac0dae54de3224181696b709bb4d66, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5585,11 +5608,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4885804780897956, guid: 1fac0dae54de3224181696b709bb4d66, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000042778097
+      value: 0.000000004197674
       objectReference: {fileID: 0}
     - target: {fileID: 4885804780897956, guid: 1fac0dae54de3224181696b709bb4d66, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 4.4869589e-10
+      value: -4.402905e-10
       objectReference: {fileID: 0}
     - target: {fileID: 4891924020563320, guid: 1fac0dae54de3224181696b709bb4d66, type: 3}
       propertyPath: m_LocalPosition.x

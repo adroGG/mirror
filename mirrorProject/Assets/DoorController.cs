@@ -1,9 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class DoorController : MonoBehaviour
-{
-
+public class DoorController : MonoBehaviour {
     public bool isOpen;
     Animator doorAnimator;
     ParticleSystem openDoorParticles;
@@ -14,7 +12,7 @@ public class DoorController : MonoBehaviour
     }
 
     public void ManageDoor() {
-        if(isOpen) {
+        if (isOpen) {
             isOpen = false;
             doorAnimator.SetBool("character_nearby", false);
             openDoorParticles.Stop();

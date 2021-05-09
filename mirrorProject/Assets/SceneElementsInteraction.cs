@@ -56,7 +56,6 @@ public class SceneElementsInteraction : MonoBehaviour {
             if (other.gameObject.tag == "ReflectionDisabler") {
                 ToggleReflectedCharacter(true);
                 UpdateSpotLightProperties(false, Color.red);
-                audioManager.StopSound("Shield Energy");
                 StartCoroutine(audioManager.StopSound("Shield Energy"));
             }
 

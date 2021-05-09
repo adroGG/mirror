@@ -11,33 +11,36 @@ public class SceneScript : MonoBehaviour {
     private TMPro.TextMeshProUGUI interactionText;
     private GameObject realDoorTrigger, reflectedDoorTrigger;
     Animator realDoorAnimator, reflectedDoorAnimator;
-    private bool realDoorOpened, reflectedDoorOpened, levelCompleted, hintShown;
+    private bool realDoorOpened, reflectedDoorOpened, hintShown;
+    public bool levelCompleted;
+
     AudioManager audioManager;
 
     private float tipTimer, tipTrigger, panelFade;
-    string[] tips = { 
-                      "Tengo que salir de aquí"
+    string[] tips = {
+                      "Tengo que salir de aquí..."
                     , "¿Quién es ese tipo del reflejo?"
                     , "¿Porqué me está siguiendo?"
                     , "Hace lo mismo que yo..."
                     , "¿Qué es este sitio?"
-                    , "No recuerdo nada"
+                    , "No recuerdo nada..."
                     , "¿Quién está jugando conmigo?"
+                    , "Quizá él sepa algo útil..."
+                    , "Siento que llevo en este lugar toda la vida"
+                    , "¿Cuantas veces mas tendré que pasar por este lugar?"
     };
-    string[] realHints = { 
+    string[] realHints = {
                       "Quiero irme de aquí"
                     , "¿Porqué tenemos que salir a la vez? Quiero irme solo"
                     , "La puerta se cierra si no la abrimos juntos"
-                    
-    };
 
+    };
     string[] reflectedHints = {
                       "Quiero irme de aquí"
                     , "¿Porqué tenemos que salir a la vez? Quiero irme solo"
                     , "La puerta se cierra si no la abrimos juntos"
-
+                    , "La puerta de su lado se ha abierto..."
     };
-
     string[] winningHints = {
                       "Ya puedo salir de aquí"
                     , "Por fin puedo salir de aquí"
@@ -45,7 +48,6 @@ public class SceneScript : MonoBehaviour {
                     , "¿Donde lleva este laberinto?"
                     , "Vámonos de este laberinto"
                     , "¿Puedo salir ya?"
-
     };
 
     private void Start() {
@@ -66,7 +68,7 @@ public class SceneScript : MonoBehaviour {
             showTip();
         }
 
-        if(realDoorOpened && !hintShown && !Panel.activeSelf) {
+        if (realDoorOpened && !hintShown && !Panel.activeSelf) {
             showRealHint();
         }
 
@@ -74,15 +76,15 @@ public class SceneScript : MonoBehaviour {
             showReflectedHint();
         }
 
-        if(levelCompleted && !hintShown && !Panel.activeSelf) {
+        if (levelCompleted && !hintShown && !Panel.activeSelf) {
             showWinningHint();
         }
 
         // Hacer desaparecer el mensaje
         if (Panel.activeSelf == true) {
-        panelFade += Time.deltaTime;
+            panelFade += Time.deltaTime;
         }
-        if(panelFade > 3.5f) {
+        if (panelFade > 3.5f) {
             HUDUpdate(false, "");
         }
     }
@@ -147,10 +149,15 @@ public class SceneScript : MonoBehaviour {
         panelFade = 0f;
         hintShown = true;
     }
-    
+
     private void HUDUpdate(bool panelStatus, string text) {
         interactionText.text = text;
         Panel.SetActive(panelStatus);
+    }
+
+    public void forceWin() {
+        levelCompleted = true;
+        checkWinCondition();
     }
 
 }

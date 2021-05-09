@@ -69,14 +69,42 @@ MonoBehaviour:
   - name: DoorOpen
     clip: {fileID: 8300000, guid: cd67f738f56407041a333df924a4edd0, type: 3}
     mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
-    volume: 0.8
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: WinCondition
     clip: {fileID: 8300000, guid: 048357143f0994413af48fbaf75d7890, type: 3}
     mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
-    volume: 0.8
+    volume: 0.9
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ButtonPress
+    clip: {fileID: 8300000, guid: 42f9dcb28aeaf43a6a8d1b0fedfa9618, type: 3}
+    mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: OpenTerminal
+    clip: {fileID: 8300000, guid: 86712fabf481f6c40a662910ca5c06b4, type: 3}
+    mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CorrectPassword
+    clip: {fileID: 8300000, guid: 1e6c356d5843c40c8a232158dc6af52a, type: 3}
+    mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WrongPassword
+    clip: {fileID: 8300000, guid: 351de4b33be7d4424ab643f3cea8ab4e, type: 3}
+    mixerGroup: {fileID: 24300002, guid: 72ed5336641052c41a8501fbeb48d1fe, type: 2}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}

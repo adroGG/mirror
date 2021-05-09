@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class RealCharacterInputManager : MonoBehaviour {
 
-    private Animator animator;
+    private Animator animator, realAnimator, reflectedAnimator;
     private GameObject realCharacter;
     private GameObject reflectedCharacter;
     private Renderer reflectedRenderer;
 
     float rotationSpeed = 80f;
     float moveSpeed = 3.5f;
-    float speedModifier = 1f;
+    float speedModifier, realSpeedModifier, reflectedSpeedModifier;
 
     private Vector2 moveDirection;
 
@@ -22,25 +22,30 @@ public class RealCharacterInputManager : MonoBehaviour {
 
     void Start() {
         realCharacter = GameObject.Find("RealCharacter");
+        realAnimator = realCharacter.GetComponent<Animator>();
+
         reflectedCharacter = GameObject.Find("ReflectedCharacter");
         reflectedRenderer = GetComponentInChildren<Renderer>();
+        reflectedAnimator = reflectedCharacter.GetComponent<Animator>();
+        
         animator = GetComponent<Animator>();
-
         audioSource = GetComponent<AudioSource>();
+
+        speedModifier = realSpeedModifier = reflectedSpeedModifier = 1f;
     }
 
 
-    private void Step() { // Llamadas desde los eventos del Animator de Character
+    private void Step() {
+        // Aunque tenga 0 referencias, esta funcion se
+        // llama desde los eventos del Animator de Character
         audioSource.PlayOneShot(audioClip);
     }
 
     public void Move(InputAction.CallbackContext context) {
         moveDirection = context.ReadValue<Vector2>();
-
         if (context.performed) {
             ManageMovement(context.ReadValue<Vector2>());
         }
-
         if (context.canceled) {
             ResetAnimations();
         }
@@ -56,15 +61,27 @@ public class RealCharacterInputManager : MonoBehaviour {
         ResetAnimations();
         if (direction[1] < -0.5f) {
             animator.SetBool("isWalkingBackwards", true);
-            speedModifier = 2f;
+            realSpeedModifier = reflectedSpeedModifier = 2.8f;
         }
 
-        if (direction[1] > 0.5f) {
-            animator.SetBool("isWalking", true);
-            animator.SetBool("isRunning", true); // Correr
-            speedModifier = 1f;
+        if (direction[1] > 0.5f && !realAnimator.GetBool("isPushing")) {
+            animator.SetBool("isRunning", true);
+            realSpeedModifier = reflectedSpeedModifier = 1f;
         }
 
+        if (direction[1] > 0.5f && realAnimator.GetBool("isPushing")) {
+            realAnimator.SetBool("isRunning", true);
+            reflectedAnimator.SetBool("isRunning", false);
+            reflectedAnimator.SetBool("isWalking", true);
+            realSpeedModifier = 1f;
+            reflectedSpeedModifier = 4f;
+        }
+
+        if(gameObject.name == "RealCharacter")
+            speedModifier = realSpeedModifier;
+        else if(gameObject.name == "ReflectedCharacter")
+            speedModifier = reflectedSpeedModifier;
+        
         Vector3 move = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, direction.y);
         transform.position += move * (moveSpeed / speedModifier) * Time.deltaTime;
     }
@@ -77,12 +94,12 @@ public class RealCharacterInputManager : MonoBehaviour {
         bool andaHaciaAtras = direction[1] < -0.5f;
 
         if (rotaIzq) { // rotar izquierda
-            if (anda) { //rotar con animacion de andar
+            if (anda) { // rotar con animacion de andar
                 animator.SetBool("isWalking", true);
                 realCharacter.transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
                 reflectedCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
 
-            } else if (andaHaciaAtras) { //rotar con animacion de andar hacia atrás
+            } else if (andaHaciaAtras) { // rotar con animacion de andar hacia atrás
                 animator.SetBool("isWalkingBackwards", true);
                 realCharacter.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
                 reflectedCharacter.transform.Rotate(Vector3.up * (-rotationSpeed) * Time.deltaTime);

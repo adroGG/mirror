@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2994882323392137226}
   - component: {fileID: 2994882323392137227}
   - component: {fileID: 2994882323392137224}
+  - component: {fileID: 6115555222003654463}
   m_Layer: 5
   m_Name: OpcionesButton
   m_TagString: Untagged
@@ -141,6 +142,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6115555222003654463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994882323392137718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2994882324847352493}
+          m_MethodName: MouseHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2994882323506862196
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +316,7 @@ GameObject:
   - component: {fileID: 2994882324084161984}
   - component: {fileID: 2994882324084161985}
   - component: {fileID: 2994882324084161998}
+  - component: {fileID: 2042405993755734982}
   m_Layer: 5
   m_Name: ContinuarButton
   m_TagString: Untagged
@@ -405,6 +435,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2042405993755734982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994882324084161996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2994882324847352493}
+          m_MethodName: MouseHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2994882324251369961
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +572,7 @@ GameObject:
   - component: {fileID: 2994882324671929158}
   - component: {fileID: 2994882324671929159}
   - component: {fileID: 2994882324671929156}
+  - component: {fileID: 2080822479285397055}
   m_Layer: 5
   m_Name: SalirButton
   m_TagString: Untagged
@@ -632,6 +691,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2080822479285397055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994882324671929154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2994882324847352493}
+          m_MethodName: MouseHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2994882324847352470
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,6 +833,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 2994882324251369961}
+  optionsMenuUI: {fileID: 0}
+  ATM: {fileID: 0}
+  terminalIsActive: 0
 --- !u!1 &2994882324918183978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1104,34 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4487896508773691202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852193526781518005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2994882324847352493}
+          m_MethodName: MouseHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &2994882325424077835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1187,6 +1305,12 @@ GameObject:
 --- !u!224 &7852193526505662782 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5005590403974599989, guid: 1bcefac3e531b98448c6a5e690c698c0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2994882325424077835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7852193526781518005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5005590403732233406, guid: 1bcefac3e531b98448c6a5e690c698c0,
     type: 3}
   m_PrefabInstance: {fileID: 2994882325424077835}
   m_PrefabAsset: {fileID: 0}

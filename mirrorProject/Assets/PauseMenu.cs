@@ -5,24 +5,47 @@ public class PauseMenu : MonoBehaviour {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
     public GameObject optionsMenuUI;
+    public GameObject ATM;
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (isPaused && !optionsMenuUI.activeSelf) {
-                Resume();
-            } else if(isPaused && optionsMenuUI.activeSelf) {
-                BackFromOptions();
-            } else {
-                Pause();
-            }
-        }
-    }
+    [SerializeField]
+    private bool terminalIsActive  = false;
 
-    void Start() {
+    private AudioManager audioManager;
+
+
+    private void Start() {
+        audioManager = FindObjectOfType<AudioManager>();
+        ATM = GameObject.Find("ATM");
         foreach (Transform t in transform) {
             if (t.name == "OptionsMenu") {
                 optionsMenuUI = t.gameObject;
             }
+        }
+    }
+
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (ATM != null) {
+                if (GameObject.Find("CanvasNumerico") != null) {
+                    if (GameObject.Find("CanvasNumerico").gameObject.activeSelf) {
+                        terminalIsActive = true;
+                    } else {
+                        terminalIsActive = false;
+                    }
+                }
+            }
+
+            if (isPaused && !optionsMenuUI.activeSelf && !terminalIsActive) {
+                Resume();
+            } else if (isPaused && optionsMenuUI.activeSelf && !terminalIsActive) {
+                BackFromOptions();
+            } else if (!terminalIsActive) {
+                Pause();
+            }
+
+            terminalIsActive = false;
+
         }
     }
 
@@ -46,6 +69,10 @@ public class PauseMenu : MonoBehaviour {
 
     public void QuitGame() {
         Application.Quit();
+    }
+
+    public void MouseHover() {
+        audioManager.PlaySound("ButtonHover");
     }
 
 }

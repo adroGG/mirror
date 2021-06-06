@@ -28,11 +28,29 @@ public class SceneScript : MonoBehaviour {
                     , "Quizá él sepa algo útil..."
                     , "Siento que llevo en este lugar toda la vida"
                     , "¿Cuantas veces mas tendré que pasar por este lugar?"
+                    , "Siento que siempre he estado aqui"
+                    , "No se donde estoy, y siendo que nunca saldré..."
+                    , "¿Otra vez la misma sala?"
+                    , "Alguien se esta burlando de mi..."
+                    , "Basta de juegos..."
+                    , "Esto está siendo demasiado para mi"
+                    , "Una y otra vez... una y otra vez..."
+                    , "Espero que alguien se esté divirtiendo..."
+                    , "Esto está siendo demasiado para mi"
+                    , "Dejadme salir ya..."
+                    , "¿Quien soy, y que hago aqui?"
+                    , "¿Es algun tipo de broma?"
+                    , "No me estoy divirtiendo..."
+                    , "Me duele la cabeza..."
+                    , "...Basta...basta..."
+                    , "Ya es suficiente, tengo que escapar."
     };
     string[] realHints = {
                       "Quiero irme de aquí"
                     , "¿Porqué tenemos que salir a la vez? Quiero irme solo"
                     , "La puerta se cierra si no la abrimos juntos"
+                    , "Quiero irme sin el"
+                    , "¿Porque viene conmigo a todas partes?"
 
     };
     string[] reflectedHints = {
@@ -40,6 +58,7 @@ public class SceneScript : MonoBehaviour {
                     , "¿Porqué tenemos que salir a la vez? Quiero irme solo"
                     , "La puerta se cierra si no la abrimos juntos"
                     , "La puerta de su lado se ha abierto..."
+                    , "¿Pretende irse sin mi?"
     };
     string[] winningHints = {
                       "Ya puedo salir de aquí"
